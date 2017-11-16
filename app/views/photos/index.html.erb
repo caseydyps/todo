@@ -1,0 +1,29 @@
+<div class="listbox">
+  <div style="text-align:center;"><h1>Todolist</h1></div>
+  <div class="underbar"></div>
+
+
+<table class="table table-striped table-condensed">
+ <% @photos.each do |photo| %>
+   <tr>
+     <td><span class="glyphicon glyphicon-ok"></span><%= photo.title %></td>
+     <td><%= "due date: " %><%= photo.date %></td>
+     <td><%= link_to 'Notes', photo_path(photo) %></td>
+     <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
+     <% if Time.now.to_date <= photo.date %>
+
+            <td><span class="glyphicon glyphicon-trash">
+            <%= link_to 'Delete', photo_path(photo), method: :delete, data:{ confirm: "Are you sure?" }
+             %>
+          </td>
+        <% else %>
+          <td><span class="glyphicon glyphicon-ban-circle"></span> already expired</td>
+
+        <% end %>
+
+   </tr>
+ <% end %>
+</table>
+<div style="text-align:center;">
+<%= link_to 'New todo', new_photo_path, class: 'btn btn-success' %>
+</div>
